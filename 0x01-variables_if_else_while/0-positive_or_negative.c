@@ -16,7 +16,7 @@ int main(void)
 
 	if (n < 0)
 	{
-		printf("the number is n, which is negative", n);
+		printf("the number is %d, which is negative", n);
 	}
 	else if (n == 0)
 	{
