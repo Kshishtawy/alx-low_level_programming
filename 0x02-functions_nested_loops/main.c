@@ -2,6 +2,6 @@
 
 int main (void)
 {
-	_putchar('c');
+	print_alphabet();
 	return (0);
 }
