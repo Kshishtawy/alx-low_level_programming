@@ -1,38 +1,25 @@
 #include "main.h"
+#include <stdio.h>
 #include <stdlib.h>
 
 /**
- * str_concat - get ends of input and add together for size
- * @s1: input one to concat
- * @s2: input two to concat
+ * free_grid - Frees a 2D array previously created by alloc_grid
+ * @grid: Pointer to the 2D array
+ * @height: Height of the grid
  *
- * Return: concat of s1 and s2
+ * Description: This function frees the memory of a 2D array of integers.
+ *
+ * Return: Nothing.
  */
 
-char *str_concat(char *s1, char *s2)
+void free_grid(int **grid, int height)
 {
-	char *conct;
-	int i, ci;
+	int i;
 
-	if (s1 == NULL)
-		s1 = "";
-	if (s2 == NULL)
-		s2 = "";
-
-	i = ci = 0;
-	while (s1[i] != '\0')
-		i++;
-
-	while (s2[ci] != '\0')
-		ci++;
-
-	conct = malloc(sizeof(char) * (i + ci + 1));
-
-	if (conct == NULL)
-		return (NULL);
-
-	i = ci = 0;
-	while (s1[i] != '\0')
+	for (i = 0; i < height; i++)
 	{
-		conct[i] = s1[i];
-		i++;
+		free(grid[i]);
+	}
+
+	free(grid);
+}
