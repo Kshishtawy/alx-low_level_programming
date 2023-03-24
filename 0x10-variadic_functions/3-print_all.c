@@ -6,7 +6,8 @@
  * print_all - Prints anything.
  * @format: A list of types of arguments passed to the function.
  *
- * Description: Converts and prints each argument according to the corresponding
+ * Description: Converts and prints each argument according to the
+ * corresponding
  * character in the @format string, which can be "c" for char, "i" for integer,
  * "f" for float, and "s" for string. If any other character or NULL is passed,
  * it is ignored.
