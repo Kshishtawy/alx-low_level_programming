@@ -1,20 +1,11 @@
-#include "main.h"
-/**
-  *puts2 - function to print every other charachter
-  *starting with the first one
-  *@str: input
-  */
-void puts2(char *s)
+void puts2(char *str)
 {
-	_putchar(*s);
-	while (*s != '\0')
-	{
-		s++;
-		s++;
-		if (*s != '\0')
-		{
-			_putchar(*s);
-		}
-	}
-	_putchar('\n');
+    int i;
+
+    for (i = 0; str[i] != '\0'; i += 2)
+    {
+        _putchar(str[i]);
+    }
+
+    _putchar('\n');
 }
