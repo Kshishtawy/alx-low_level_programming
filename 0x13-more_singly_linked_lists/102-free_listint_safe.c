@@ -8,8 +8,8 @@
  */
 size_t free_listint_safe(listint_t **h)
 {
-	unsigned int len = 0;
-	ptrdiff_t diff;
+	size_t len = 0;
+	int diff;
 	listint_t *temp;
 
 	if (!h || !*h)
