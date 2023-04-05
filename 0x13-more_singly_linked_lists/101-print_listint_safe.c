@@ -2,56 +2,51 @@
 #include <stdio.h>
 
 /**
- * get_unique_nodes_in_loop - Counts the number of unique nodes
+ * count_unique_nodes - Counts the number of unique nodes
  * in a looped listint_t linked list.
  * @head: A pointer to the head of the listint_t to check.
  *
  * Return: If the list is not looped - 0.
  * Otherwise - the number of unique nodes in the list.
  */
-size_t get_unique_nodes_in_loop(const listint_t *list_head)
+size_t count_unique_nodes(const listint_t *head)
 {
-	const listint_t *tortoise, *hare;
-	size_t num_nodes = 1;
+    const listint_t *slow_ptr, *fast_ptr;
+    size_t count = 1;
 
-	/* Check if list is empty or has only one node */
-	if (list_head == NULL || list_head->next == NULL)
-		return (0);
+    if (head == NULL || head->next == NULL)
+        return (0);
 
-	tortoise = list_head->next;
-	hare = (list_head->next)->next;
+    slow_ptr = head->next;
+    fast_ptr = (head->next)->next;
 
-	while (hare)
-	{
-		if (tortoise == hare) /* The tortoise and hare meet */
-		{
-			tortoise = list_head;
+    while (fast_ptr)
+    {
+        if (slow_ptr == fast_ptr)
+        {
+            slow_ptr = head;
+            while (slow_ptr != fast_ptr)
+            {
+                count++;
+                slow_ptr = slow_ptr->next;
+                fast_ptr = fast_ptr->next;
+            }
 
-			/* Count the number of unique nodes until the meeting point */
-			while (tortoise != hare)
-			{
-				num_nodes++;
-				tortoise = tortoise->next;
-				hare = hare->next;
-			}
+            slow_ptr = slow_ptr->next;
+            while (slow_ptr != fast_ptr)
+            {
+                count++;
+                slow_ptr = slow_ptr->next;
+            }
 
-			tortoise = tortoise->next;
+            return (count);
+        }
 
-			/* Count the number of nodes in the loop */
-			while (tortoise != hare)
-			{
-				num_nodes++;
-				tortoise = tortoise->next;
-			}
+        slow_ptr = slow_ptr->next;
+        fast_ptr = (fast_ptr->next)->next;
+    }
 
-			return (num_nodes);
-		}
-
-		tortoise = tortoise->next;
-		hare = (hare->next)->next;
-	}
-
-	return (0); /* List is not looped */
+    return (0);
 }
 
 /**
@@ -60,31 +55,31 @@ size_t get_unique_nodes_in_loop(const listint_t *list_head)
  *
  * Return: The number of nodes in the list.
  */
-size_t print_listint_safe(const listint_t *list_head)
+size_t print_listint_safe(const listint_t *head)
 {
-	size_t num_nodes, index = 0;
+    size_t count, index = 0;
 
-	num_nodes = get_unique_nodes_in_loop(list_head);
+    count = count_unique_nodes(head);
 
-	if (num_nodes == 0) /* List is not looped */
-	{
-		for (; list_head != NULL; num_nodes++)
-		{
-			printf("Address[%p] Data[%d]\n", (void *)list_head, list_head->n);
-			list_head = list_head->next;
-		}
-	}
+    if (count == 0)
+    {
+        for (; head != NULL; count++)
+        {
+            printf("[%p] %d\n", (void *)head, head->n);
+            head = head->next;
+        }
+    }
 
-	else /* List is looped */
-	{
-		for (index = 0; index < num_nodes; index++)
-		{
-			printf("Address[%p] Data[%d]\n", (void *)list_head, list_head->n);
-			list_head = list_head->next;
-		}
+    else
+    {
+        for (index = 0; index < count; index++)
+        {
+            printf("[%p] %d\n", (void *)head, head->n);
+            head = head->next;
+        }
 
-		printf("Loop starts at address [%p] with data [%d]\n", (void *)list_head, list_head->n);
-	}
+        printf("-> [%p] %d\n", (void *)head, head->n);
+    }
 
-	return (num_nodes);
+    return (count);
 }
